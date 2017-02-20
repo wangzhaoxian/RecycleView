@@ -1,15 +1,49 @@
 package com.jll.zoro.recycleview_3r;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.jll.zoro.rxjava_retrofit.HttpMethods;
+import com.jll.zoro.rxjava_retrofit.ProgressSubscriber;
+import com.jll.zoro.rxjava_retrofit.info.Subject;
+import com.jll.zoro.rxjava_retrofit.interfaceInfo.SubscriberOnNextListener;
+
+import java.util.List;
+
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String tag = "MainActivity";
+    private HttpMethods httpMethods;
+    private SubscriberOnNextListener getTopMovieOnNext;
+    private TextView showData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        showData = (TextView) findViewById(com.jll.zoro.rxjava_retrofit.R.id.showData);
+        findViewById(R.id.show).setOnClickListener(this);
+        httpMethods = new HttpMethods();
+        getTopMovieOnNext = new SubscriberOnNextListener<List<Subject>>() {
+            @Override
+            public void onNext(List<Subject> subjects) {
+
+                showData.setText(subjects.get(9).getTitle());
+
+            }
+        };
+    }
+    //封装单独处理onNext()
+    private void getData_2() {
+        ProgressSubscriber<List<Subject>> subscriber = new ProgressSubscriber<>(getTopMovieOnNext,this);
+//        httpMethods.getTopMovie(new ProgressSubscriber(getTopMovieOnNext,this),0,10);
+        httpMethods.getTopMovie(subscriber,0,10);
+    }
+    @Override
+    public void onClick(View view) {
+        getData_2();
     }
 }
