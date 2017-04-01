@@ -27,6 +27,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         mLayoutInflater = LayoutInflater.from(context);
     }
 
+    public void setData(List<String> list) {
+        this.list = list;
+        notifyDataSetChanged();
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ImageTextViewHolder(mLayoutInflater.inflate(R.layout.item_text_1, parent, false));
@@ -35,7 +40,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((ImageTextViewHolder)holder).textView.setText(list.get(position));
+        ((ImageTextViewHolder) holder).textView.setText(list.get(position));
     }
 
     @Override

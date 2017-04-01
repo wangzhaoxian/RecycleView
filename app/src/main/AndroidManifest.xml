@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Property_Animation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,7 +17,7 @@
         </activity>
         <activity android:name=".RecycleView_1" />
         <activity android:name=".RecycleView_2" />
-        <activity android:name=".RecycleView_3"></activity>
+        <activity android:name=".RecycleView_3" />
     </application>
 
 </manifest>

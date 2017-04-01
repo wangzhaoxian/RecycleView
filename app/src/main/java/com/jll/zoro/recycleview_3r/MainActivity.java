@@ -1,7 +1,11 @@
 package com.jll.zoro.recycleview_3r;
 
+import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -48,23 +52,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         httpMethods.getTopMovie(subscriber, 0, 10);
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.recycleView_1:
                 //TODO implement
                 Intent intent = new Intent(MainActivity.this,RecycleView_1.class);
-                this.startActivity(intent);
+                intent.putExtra("transition", "explode");
+                this.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 break;
             case R.id.recycleView_2:
                 //TODO implement
                 Intent intent1 = new Intent(MainActivity.this,RecycleView_2.class);
-                this.startActivity(intent1);
+                intent1.putExtra("transition", "slide");
+                this.startActivity(intent1, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 break;
             case R.id.recycleView_3:
                 //TODO implement
                 Intent intent2 = new Intent(MainActivity.this,RecycleView_3.class);
-                this.startActivity(intent2);
+                intent2.putExtra("transition", "fade");
+                this.startActivity(intent2, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 break;
             case R.id.show:
                 //TODO implement
